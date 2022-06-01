@@ -1,14 +1,18 @@
 import React from 'react';
-
+import { useStyles } from './style';
+import styles from './Title.module.css';
 
 export const Title=()=>{
+  //const classes = useStyles();
   return (
-    <div>
-      <img
-      src={require('../../src/assets/Vector.png')}
-      />
+    <div className={styles.title}>
       <div>
-        dade
+        <img
+        src={require('../../src/assets/Vector.png')}
+        />
+      </div>
+      <div>
+        내 서재
       </div>
     </div>
   )
