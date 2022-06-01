@@ -11,7 +11,7 @@ export const Title=()=>{
         src={require('../../src/assets/Vector.png')}
         />
       </div>
-      <div>
+      <div className={styles.name}>
         내 서재
       </div>
     </div>

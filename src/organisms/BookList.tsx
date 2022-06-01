@@ -3,23 +3,34 @@ import styles from './BookList.module.css';
 export const BookList=()=>{
   return (
     <div className={styles.Contain}>
-      <div className={styles.ListTitle}>
+        <div className={styles.ListTitle}>
         회전목마
-      </div>
+        </div>
       <ListCarousell/>
     </div>
   )
 }
 const ListCarousell=()=>{
   return (
-    <div>
-      <img
-      src={require('../assets/left_off.png')}
-      />
+    <div style={{display:'flex',flexDirection:'row'}}>
+      <div className={styles.ListArrow}>
+        <button className={styles.Button}>
+          <img
+          src={require('../assets/left_off.png')}
+          />
+        </button>
+      </div>
+      
       <ListItem/>
-      <img
-      src={require('../assets/right_on.png')}
-      />
+      <div className={styles.ListArrow}>
+        <button className={styles.Button}>
+          <img
+          src={require('../assets/right_on.png')}
+          />
+        </button>
+      </div>
+      
+      
     </div>
     
   )
