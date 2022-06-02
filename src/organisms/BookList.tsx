@@ -1,18 +1,22 @@
 import useAxios from 'axios-hooks';
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Book, ListItemProps, ListProps } from '../interface/Carousell';
+import { Book, ListProps, NewBook } from '../interface/Carousell';
+import { BookItem } from './BookItem';
 import styles from './BookList.module.css';
 
 
 export const BookList=()=>{
   const [{ data: getData, loading: getLoading, error: getError },] =
-		useAxios<Book[]>(
+		useAxios<NewBook[]>(
 			{
 				method: 'GET',
 				url: 'https://api.jsonbin.io/b/616cd47a9548541c29c49b36',
 			}
-		);
+    );
+  getData&& getData?.forEach((iter)=>
+      iter.bookMark=false,
+  )
   return (
     <div className={styles.Contain}>
         <div className={styles.ListTitle}>
@@ -55,10 +59,11 @@ const ListCarousell=(props:ListProps):JSX.Element=>{
   const book=bookList.filter((num,index)=>
     index<limit+start && index>=start
   );
+  console.log(book);
   return (
     <div style={{display:'flex',flexDirection:'row'}}>
       <div className={styles.ListArrow}>
-        {start===0 ? 
+        {start<=0 ? 
         (<button className={styles.Button}>
           <img
           alt="prev"
@@ -74,7 +79,7 @@ const ListCarousell=(props:ListProps):JSX.Element=>{
       </div>
         <>
           {book.map((iter) =>
-            <ListIt title={iter.title} des={iter.description}/>
+            <BookItem book={iter}/>
           )}
         </>
       <div className={styles.ListArrow}>
@@ -92,31 +97,5 @@ const ListCarousell=(props:ListProps):JSX.Element=>{
         
       </div>
     </div>
-  )
-}
-const ListIt=(props: ListItemProps)=>{
-  const { title, des }=props;
-  return (
-    <div style={{position:'relative', marginRight:16,}}>
-    <img
-      alt="book"
-      className={styles.Book}
-      src={require('../assets/Book.png')}
-    >
-    </img>
-    <div className={styles.BookCon}>
-      <div className={styles.BookTitle}>
-        {title}
-      </div>
-      <div className={styles.BookDes}>
-        {des}
-      </div>
-    </div>
-    <img 
-    alt="mark"
-    className={styles.BookMark}
-    src={require('../assets/Bookmark_off.png')}></img>
-    </div>
-    
   )
 }

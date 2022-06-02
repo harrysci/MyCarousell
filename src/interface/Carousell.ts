@@ -1,14 +1,20 @@
 export interface ListProps {
-  bookList: Book[];
+  bookList: NewBook[];
 }
 
-export interface ListItemProps {
-  title: String;
-  des: String;
+export interface BookItemProps {
+  book : NewBook;
 }
 export interface Book {
   id:String;
   userName:String;
   title:String;
   description:String;
+}
+export interface NewBook {
+  id:String;
+  userName:String;
+  title:String;
+  description:String;
+  bookMark: boolean;
 }
