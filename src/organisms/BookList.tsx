@@ -1,5 +1,6 @@
 import useAxios from 'axios-hooks';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { Book, ListItemProps, ListProps } from '../interface/Carousell';
 import styles from './BookList.module.css';
 
@@ -27,20 +28,49 @@ export const BookList=()=>{
 
 const ListCarousell=(props:ListProps):JSX.Element=>{
   const {bookList}=props;
-  let limit=6;
-  let start=0;
-  const book=bookList.filter((num,index)=>
-    index<limit && index>=start
-  );
+  
+  const Tab = useMediaQuery({maxWidth:1024})
+  const isDesktop= useMediaQuery({minWidth:1024, maxWidth:1270});
+  const isDesktop2=useMediaQuery({minWidth: 1270,maxWidth:1516});
+  const isDesktop3=useMediaQuery({minWidth: 1752});
   //console.log(book);
+
+  const [limit,setLimit]=useState<number>(6);
+  const [start,setStart]=useState<number>(0);
+  const handleMedia=()=>{
+    if(Tab) {
+      setLimit(3);
+    } else if(isDesktop){
+      setLimit(4);
+    } else if(isDesktop2){
+      setLimit(5);
+    } else if(isDesktop3){
+      setLimit(6);
+    }
+  }
+  useEffect(()=>{
+    handleMedia()
+  },);
+  
+  const book=bookList.filter((num,index)=>
+    index<limit+start && index>=start
+  );
   return (
     <div style={{display:'flex',flexDirection:'row'}}>
       <div className={styles.ListArrow}>
-        <button className={styles.Button}>
+        {start===0 ? 
+        (<button className={styles.Button}>
           <img
-          src={require('../assets/left_off.png')}
+          alt="prev"
+          src={require('../assets/prev_off.png')}
           />
-        </button>
+        </button>):(
+        <button className={styles.Button} onClick={()=>setStart(start-limit)}>
+          <img
+          alt="prev"
+          src={require('../assets/prev_on.png')}
+          />
+        </button>)}
       </div>
         <>
           {book.map((iter) =>
@@ -48,11 +78,18 @@ const ListCarousell=(props:ListProps):JSX.Element=>{
           )}
         </>
       <div className={styles.ListArrow}>
-        <button className={styles.Button}>
+        {start+limit>=99 ? (<button className={styles.Button}>
           <img
-          src={require('../assets/right_on.png')}
+          alt="next"
+          src={require('../assets/next_off.png')}
           />
-        </button>
+        </button>):(<button className={styles.Button} onClick={()=>setStart(start+limit)}>
+          <img
+          alt="next"
+          src={require('../assets/next_on.png')}
+          />
+        </button>)}
+        
       </div>
     </div>
   )
