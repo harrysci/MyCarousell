@@ -5,7 +5,7 @@ import { BookList } from '../organisms/BookList';
 
 export const CarousellPage=()=>{
   return (
-    <div style={{flexDirection:'row', backgroundColor:'green', display:'flex'}}>
+    <div style={{flexDirection:'row', display:'flex'}}>
       <SearchBar/>
       <div>
         <Title/>
