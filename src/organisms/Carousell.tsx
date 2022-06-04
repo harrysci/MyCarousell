@@ -1,13 +1,14 @@
 import useAxios from 'axios-hooks';
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { ListProps, NewBook } from '../interface/Carousell';
+import { BookListProps, NewBook } from '../interface/Carousell';
 import { BookItem } from './BookItem';
-import styles from './BookList.module.css';
+import styles from './Carousell.module.css';
 
 
-export const BookList=()=>{
-  const [{ data: getData, loading: getLoading, error: getError },] =
+export const Carousell=()=>{
+  /*api 요청 : useAxios-hook 이용 */
+  const [{ data: getData, loading: getLoading, error: getError },setAxios] =
 		useAxios<NewBook[]>(
 			{
 				method: 'GET',
@@ -15,18 +16,13 @@ export const BookList=()=>{
 			}
     );
   useEffect(()=>{
+    // const arr:NewBook[]=[];
+    // localStorage.setItem("BookList",JSON.stringify(arr));
   },[]);
 
-  const localStore=window.localStorage.getItem('BookList');
-  const localData:NewBook[]=
-    localStore&&JSON.parse(localStore) || !localStore&&getData;
-  console.log('local:',localData);
+  
   getData&& getData?.forEach((iter)=>{
-      if(!localData) iter.bookMark=false;
-      else if(localData.indexOf(iter)){
-        iter.bookMark=true
-      } 
-      else if(!localData.indexOf(iter)) iter.bookMark=false;
+    iter.bookMark=false;
     } 
   )
   return (
@@ -35,14 +31,15 @@ export const BookList=()=>{
         회전목마
         </div>
       {!getError && !getLoading && getData &&(
-        <ListCarousell bookList={getData}/>
+        <BookList bookList={getData}/>
       )}
     </div>
   )
 }
 
 
-const ListCarousell = (props:ListProps) : JSX.Element => {
+const BookList = (props:BookListProps) : JSX.Element => {
+  /*서재 반응형 로직*/
   const { bookList }=props;
   
   const Tab = useMediaQuery({maxWidth:1024})
@@ -50,9 +47,6 @@ const ListCarousell = (props:ListProps) : JSX.Element => {
   const isDesktop2=useMediaQuery({minWidth: 1270,maxWidth:1516});
   const isDesktop3=useMediaQuery({minWidth: 1752});
   //console.log(book);
-
-  const [limit,setLimit]=useState<number>(6);
-  const [start,setStart]=useState<number>(0);
   const handleMedia=()=>{
     if(Tab) {
       setLimit(3);
@@ -67,12 +61,25 @@ const ListCarousell = (props:ListProps) : JSX.Element => {
   useEffect(()=>{
     handleMedia()
   },);
+
+  /*화면 당 보여줄 책 로직*/
+  const [limit,setLimit]=useState<number>(6);
+  const [start,setStart]=useState<number>(0);
+
+  /*localStorage 저장정보 불러오기*/
   
-  const book=bookList.filter((num,index)=>
+  const localStore=localStorage.getItem("BookList");
+  const localData:string[]=localStore&&JSON.parse(localStore);
+  console.log("localData:",localData);
+  const showBookList=bookList.filter((num,index)=>
     index<limit+start && index>=start
   );
-  console.log("limit:",limit);
-  console.log("start:", start);
+  showBookList.map((iter)=>{
+      if(localData.includes(iter.id)){
+        iter.bookMark=true;
+      }
+    }
+  );
   return (
     <div style={{display:'flex',flexDirection:'row'}}>
       <div className={styles.ListArrow}>
@@ -91,8 +98,8 @@ const ListCarousell = (props:ListProps) : JSX.Element => {
         </button>)}
       </div>
         <>
-          {book.map((iter) =>
-            <BookItem book={iter}/>
+          {showBookList.map((iter, index) =>
+            <BookItem key={iter.id} book={iter}/>
           )}
         </>
       <div className={styles.ListArrow}>
@@ -101,7 +108,7 @@ const ListCarousell = (props:ListProps) : JSX.Element => {
           alt="next"
           src={require('../assets/next_off.png')}
           />
-        </button>):(<button className={styles.Button} onClick={()=>setStart(start+limit)}>
+        </button>):(<button className={styles.Button} onClick={()=>setStart(limit+start)}>
           <img
           alt="next"
           src={require('../assets/next_on.png')}

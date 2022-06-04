@@ -9,15 +9,19 @@ export const BookItem=(props: BookItemProps)=>{
   
   
   const handleMark=()=>{
-    setMark(!markState);
     const localStore=localStorage.getItem("BookList");
-    const localData:NewBook[]=localStore&&JSON.parse(localStore);
-    if(markState===true){
-      localData[localData.indexOf(book)].bookMark=true;
-    } else {
-      localData[localData.indexOf(book)].bookMark=false;
+    const localData:string[]=localStore&&JSON.parse(localStore);
+    if(markState==false && !localData.includes(book.id)){
+      localData.push(book.id);
+      localStorage.setItem("BookList", JSON.stringify(localData));
+      console.log("체크 핸들 후",localStorage.getItem("BookList"));
+    } else if(markState==true){
+      const filterData=localData.filter((iter)=> iter!=book.id);
+      localStorage.setItem("BookList", JSON.stringify(filterData));
+      console.log("체크 핸들 후",localStorage.getItem("BookList"));
     }
-    localStorage.setItem("BookList", JSON.stringify(localData));
+    setMark(!markState);
+    //console.log(localData);
   }
   
   

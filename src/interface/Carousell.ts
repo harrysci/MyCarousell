@@ -1,4 +1,4 @@
-export interface ListProps {
+export interface BookListProps {
   bookList: NewBook[];
 }
 
@@ -6,15 +6,15 @@ export interface BookItemProps {
   book : NewBook;
 }
 export interface Book {
-  id:String;
-  userName:String;
-  title:String;
-  description:String;
+  id:string;
+  userName:string;
+  title:string;
+  description:string;
 }
 export interface NewBook {
-  id:String;
-  userName:String;
-  title:String;
-  description:String;
+  id:string;
+  userName:string;
+  title:string;
+  description:string;
   bookMark: boolean;
 }
