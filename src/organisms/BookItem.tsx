@@ -1,27 +1,28 @@
 import { useState } from 'react';
-import { BookItemProps, NewBook } from '../interface/Carousell';
-import styles from './BookItem.module.css';
+import { BookItemProps } from '../interface/Carousell';
+import styles from './style/BookItem.module.css';
 
 export const BookItem=(props: BookItemProps)=>{
   const { book }=props;
-  
+
+  /*북마크 state*/
   const [markState,setMark]=useState<boolean>(book.bookMark);
   
-  
+  /*북마크 시 localStorage 저장 로직 */
   const handleMark=()=>{
     const localStore=localStorage.getItem("BookList");
     const localData:string[]=localStore&&JSON.parse(localStore);
-    if(markState==false && !localData.includes(book.id)){
+
+    if(markState===false && !localData.includes(book.id)){
       localData.push(book.id);
       localStorage.setItem("BookList", JSON.stringify(localData));
       console.log("체크 핸들 후",localStorage.getItem("BookList"));
-    } else if(markState==true){
-      const filterData=localData.filter((iter)=> iter!=book.id);
+    } else if(markState===true){
+      const filterData=localData.filter((iter)=> iter!==book.id);
       localStorage.setItem("BookList", JSON.stringify(filterData));
       console.log("체크 핸들 후",localStorage.getItem("BookList"));
     }
     setMark(!markState);
-    //console.log(localData);
   }
   
   

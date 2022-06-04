@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './Title.module.css';
+import styles from './style/Title.module.css';
 
 export const Title=()=>{
   //const classes = useStyles();
@@ -7,6 +7,7 @@ export const Title=()=>{
     <div className={styles.title}>
       <div>
         <img
+        alt="vector"
         src={require('../../src/assets/Vector.png')}
         />
       </div>

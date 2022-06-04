@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { BookListProps, NewBook } from '../interface/Carousell';
 import { BookItem } from './BookItem';
-import styles from './Carousell.module.css';
+import styles from './style/Carousell.module.css';
 
 
 export const Carousell=()=>{
@@ -15,7 +15,9 @@ export const Carousell=()=>{
 				url: 'https://api.jsonbin.io/b/616cd47a9548541c29c49b36',
 			}
     );
-
+  getData&& getData?.forEach((iter)=>
+    iter.bookMark=false
+  )
   /*새로고침 테스트용*/
   // useEffect(()=>{
   //   const arr:NewBook[]=[];
@@ -23,9 +25,6 @@ export const Carousell=()=>{
   // },[]);
 
   
-  getData&& getData?.forEach((iter)=>
-    iter.bookMark=false
-  )
   return (
     <div className={styles.Contain}>
         <div className={styles.ListTitle}>
@@ -40,14 +39,13 @@ export const Carousell=()=>{
 
 
 const BookList = (props:BookListProps) : JSX.Element => {
-  /*서재 반응형 로직*/
   const { bookList }=props;
-  
+
+  /*서재 반응형 로직*/
   const Tab = useMediaQuery({maxWidth:1024})
   const isDesktop= useMediaQuery({minWidth:1024, maxWidth:1270});
   const isDesktop2=useMediaQuery({minWidth: 1270,maxWidth:1516});
   const isDesktop3=useMediaQuery({minWidth: 1752});
-  //console.log(book);
   const handleMedia=()=>{
     if(Tab) {
       setLimit(3);
@@ -63,14 +61,14 @@ const BookList = (props:BookListProps) : JSX.Element => {
     handleMedia()
   },);
 
-  /*화면 당 보여줄 책 로직*/
+  /*화면 당 보여줄 책의 갯수*/
   const [limit,setLimit]=useState<number>(6);
   const [start,setStart]=useState<number>(0);
   const showBookList=bookList.filter((num,index)=>
     index<limit+start && index>=start
   );
 
-  /*localStorage 저장정보 불러오기*/
+  /*localStorage 북마크 저장정보 불러오기*/
   const localStore=localStorage.getItem("BookList");
   const localData:string[]=localStore&&JSON.parse(localStore);
   console.log("localData:",localData);
@@ -114,7 +112,6 @@ const BookList = (props:BookListProps) : JSX.Element => {
           src={require('../assets/next_on.png')}
           />
         </button>)}
-        
       </div>
     </div>
   )
