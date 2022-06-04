@@ -8,22 +8,23 @@ import styles from './Carousell.module.css';
 
 export const Carousell=()=>{
   /*api 요청 : useAxios-hook 이용 */
-  const [{ data: getData, loading: getLoading, error: getError },setAxios] =
+  const [{ data: getData, loading: getLoading, error: getError },] =
 		useAxios<NewBook[]>(
 			{
 				method: 'GET',
 				url: 'https://api.jsonbin.io/b/616cd47a9548541c29c49b36',
 			}
     );
-  useEffect(()=>{
-    // const arr:NewBook[]=[];
-    // localStorage.setItem("BookList",JSON.stringify(arr));
-  },[]);
+
+  /*새로고침 테스트용*/
+  // useEffect(()=>{
+  //   const arr:NewBook[]=[];
+  //   localStorage.setItem("BookList",JSON.stringify(arr));
+  // },[]);
 
   
-  getData&& getData?.forEach((iter)=>{
-    iter.bookMark=false;
-    } 
+  getData&& getData?.forEach((iter)=>
+    iter.bookMark=false
   )
   return (
     <div className={styles.Contain}>
@@ -65,15 +66,14 @@ const BookList = (props:BookListProps) : JSX.Element => {
   /*화면 당 보여줄 책 로직*/
   const [limit,setLimit]=useState<number>(6);
   const [start,setStart]=useState<number>(0);
-
-  /*localStorage 저장정보 불러오기*/
-  
-  const localStore=localStorage.getItem("BookList");
-  const localData:string[]=localStore&&JSON.parse(localStore);
-  console.log("localData:",localData);
   const showBookList=bookList.filter((num,index)=>
     index<limit+start && index>=start
   );
+
+  /*localStorage 저장정보 불러오기*/
+  const localStore=localStorage.getItem("BookList");
+  const localData:string[]=localStore&&JSON.parse(localStore);
+  console.log("localData:",localData);
   showBookList.map((iter)=>{
       if(localData.includes(iter.id)){
         iter.bookMark=true;
