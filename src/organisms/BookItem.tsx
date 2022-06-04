@@ -4,7 +4,6 @@ import styles from './style/BookItem.module.css';
 
 export const BookItem=(props: BookItemProps)=>{
   const { book }=props;
-
   /*북마크 state*/
   const [markState,setMark]=useState<boolean>(book.bookMark);
   
@@ -16,18 +15,16 @@ export const BookItem=(props: BookItemProps)=>{
     if(markState===false && !localData.includes(book.id)){
       localData.push(book.id);
       localStorage.setItem("BookList", JSON.stringify(localData));
-      console.log("체크 핸들 후",localStorage.getItem("BookList"));
     } else if(markState===true){
       const filterData=localData.filter((iter)=> iter!==book.id);
       localStorage.setItem("BookList", JSON.stringify(filterData));
-      console.log("체크 핸들 후",localStorage.getItem("BookList"));
     }
     setMark(!markState);
   }
   
   
   return (
-    <div style={{position:'relative', marginRight:16,}}>
+    <div style={{position:'relative', marginRight:16}}>
       <img
         alt="book"
         className={styles.Book}

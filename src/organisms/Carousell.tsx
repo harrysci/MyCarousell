@@ -18,7 +18,7 @@ export const Carousell=()=>{
   getData&& getData?.forEach((iter)=>
     iter.bookMark=false
   )
-  /*새로고침 테스트용*/
+  /*테스트용 새로고침*/
   // useEffect(()=>{
   //   const arr:NewBook[]=[];
   //   localStorage.setItem("BookList",JSON.stringify(arr));
@@ -42,10 +42,10 @@ const BookList = (props:BookListProps) : JSX.Element => {
   const { bookList }=props;
 
   /*서재 반응형 로직*/
-  const Tab = useMediaQuery({maxWidth:1024})
-  const isDesktop= useMediaQuery({minWidth:1024, maxWidth:1270});
-  const isDesktop2=useMediaQuery({minWidth: 1270,maxWidth:1516});
-  const isDesktop3=useMediaQuery({minWidth: 1752});
+  const Tab = useMediaQuery({maxWidth:1216})
+  const isDesktop= useMediaQuery({minWidth:1216, maxWidth:1462});
+  const isDesktop2=useMediaQuery({minWidth: 1462,maxWidth:1708});
+  const isDesktop3=useMediaQuery({minWidth: 1708});
   const handleMedia=()=>{
     if(Tab) {
       setLimit(3);
@@ -71,7 +71,6 @@ const BookList = (props:BookListProps) : JSX.Element => {
   /*localStorage 북마크 저장정보 불러오기*/
   const localStore=localStorage.getItem("BookList");
   const localData:string[]=localStore&&JSON.parse(localStore);
-  console.log("localData:",localData);
   showBookList.map((iter)=>{
       if(localData.includes(iter.id)){
         iter.bookMark=true;

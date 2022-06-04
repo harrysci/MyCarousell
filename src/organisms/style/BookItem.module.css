@@ -9,18 +9,12 @@
   /* Vector */
   position: absolute;
   left: 0%;
-  /*right: 20.83%;*/
   top: 5.5%;
   bottom: 12.5%;
-
-  /* primary */
-
-  /*background: #b2b2b2;*/
 }
 .MarkButton {
   position: absolute;
   left: 20.83%;
-
   top: 5.5%;
   background-color: #ffffff;
   border: none;
@@ -35,7 +29,6 @@
   height: 24px;
 
   /* title-sm */
-
   font-family: "Noto Sans CJK KR";
   font-style: normal;
   font-weight: 400;
@@ -44,7 +37,6 @@
   /* identical to box height, or 171% */
 
   /* black/80 */
-
   color: rgba(0, 0, 0, 0.8);
 }
 .BookDes {
@@ -52,7 +44,6 @@
   height: 22px;
 
   /* caption */
-
   font-family: "Noto Sans CJK KR";
   font-style: normal;
   font-weight: 400;
@@ -61,6 +52,5 @@
   /* identical to box height, or 183% */
 
   /* black/40 */
-
   color: rgba(0, 0, 0, 0.4);
 }

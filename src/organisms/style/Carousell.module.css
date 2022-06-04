@@ -43,15 +43,11 @@
   height: 36px;
 
   /* white */
-
   background: #ffffff;
   border-radius: 18px;
   border: none;
   border-width: 0;
   /* Inside auto layout */
-  flex: none;
-  order: 0;
-  flex-grow: 0;
 }
 .ListArrow {
   display: flex;
