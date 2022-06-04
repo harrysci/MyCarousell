@@ -46,6 +46,7 @@
 
   background: #ffffff;
   border-radius: 18px;
+  border: none;
   border-width: 0;
   /* Inside auto layout */
   flex: none;

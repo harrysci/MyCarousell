@@ -1,5 +1,4 @@
 import React from 'react';
-import { useStyles } from './style';
 import styles from './Title.module.css';
 
 export const Title=()=>{

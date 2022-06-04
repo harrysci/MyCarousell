@@ -1,7 +1,7 @@
 import useAxios from 'axios-hooks';
 import React, { useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Book, ListProps, NewBook } from '../interface/Carousell';
+import { ListProps, NewBook } from '../interface/Carousell';
 import { BookItem } from './BookItem';
 import styles from './BookList.module.css';
 
@@ -14,8 +14,20 @@ export const BookList=()=>{
 				url: 'https://api.jsonbin.io/b/616cd47a9548541c29c49b36',
 			}
     );
-  getData&& getData?.forEach((iter)=>
-      iter.bookMark=false,
+  useEffect(()=>{
+  },[]);
+
+  const localStore=window.localStorage.getItem('BookList');
+  const localData:NewBook[]=
+    localStore&&JSON.parse(localStore) || !localStore&&getData;
+  console.log('local:',localData);
+  getData&& getData?.forEach((iter)=>{
+      if(!localData) iter.bookMark=false;
+      else if(localData.indexOf(iter)){
+        iter.bookMark=true
+      } 
+      else if(!localData.indexOf(iter)) iter.bookMark=false;
+    } 
   )
   return (
     <div className={styles.Contain}>
@@ -30,8 +42,8 @@ export const BookList=()=>{
 }
 
 
-const ListCarousell=(props:ListProps):JSX.Element=>{
-  const {bookList}=props;
+const ListCarousell = (props:ListProps) : JSX.Element => {
+  const { bookList }=props;
   
   const Tab = useMediaQuery({maxWidth:1024})
   const isDesktop= useMediaQuery({minWidth:1024, maxWidth:1270});
@@ -59,7 +71,8 @@ const ListCarousell=(props:ListProps):JSX.Element=>{
   const book=bookList.filter((num,index)=>
     index<limit+start && index>=start
   );
-  console.log(book);
+  console.log("limit:",limit);
+  console.log("start:", start);
   return (
     <div style={{display:'flex',flexDirection:'row'}}>
       <div className={styles.ListArrow}>
@@ -83,7 +96,7 @@ const ListCarousell=(props:ListProps):JSX.Element=>{
           )}
         </>
       <div className={styles.ListArrow}>
-        {start+limit>=99 ? (<button className={styles.Button}>
+        {start+limit>99 ? (<button className={styles.Button}>
           <img
           alt="next"
           src={require('../assets/next_off.png')}
