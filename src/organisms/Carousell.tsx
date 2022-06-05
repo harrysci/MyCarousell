@@ -19,10 +19,10 @@ export const Carousell=()=>{
     iter.bookMark=false
   )
   /*테스트용 새로고침*/
-  useEffect(()=>{
-    const arr:NewBook[]=[];
-    localStorage.setItem("BookList",JSON.stringify(arr));
-  },[]);
+  // useEffect(()=>{
+  //   const arr:NewBook[]=[];
+  //   localStorage.setItem("BookList",JSON.stringify(arr));
+  // },[]);
 
   
   return (

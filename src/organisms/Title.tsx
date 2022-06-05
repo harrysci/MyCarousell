@@ -1,8 +1,6 @@
-import React from 'react';
 import styles from './style/Title.module.css';
 
 export const Title=()=>{
-  //const classes = useStyles();
   return (
     <div className={styles.title}>
       <div>

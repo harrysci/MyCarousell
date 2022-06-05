@@ -17,7 +17,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 24px;
-  /* identical to box height, or 171% */
+
   /* black/80 */
   color: rgba(0, 0, 0, 0.8);
 
@@ -28,8 +28,6 @@
 }
 
 .Button {
-  /* btn/icon-disable */
-
   /* Auto layout */
   display: flex;
   flex-direction: row;
@@ -38,16 +36,15 @@
   padding: 6px;
   margin-right: 16px;
   gap: 10px;
-
   width: 36px;
   height: 36px;
 
   /* white */
   background: #ffffff;
+  /*border*/
   border-radius: 18px;
   border: none;
   border-width: 0;
-  /* Inside auto layout */
 }
 .ListArrow {
   display: flex;
