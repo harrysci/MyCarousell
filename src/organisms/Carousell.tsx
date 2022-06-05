@@ -19,10 +19,10 @@ export const Carousell=()=>{
     iter.bookMark=false
   )
   /*테스트용 새로고침*/
-  // useEffect(()=>{
-  //   const arr:NewBook[]=[];
-  //   localStorage.setItem("BookList",JSON.stringify(arr));
-  // },[]);
+  useEffect(()=>{
+    const arr:NewBook[]=[];
+    localStorage.setItem("BookList",JSON.stringify(arr));
+  },[]);
 
   
   return (
@@ -42,10 +42,10 @@ const BookList = (props:BookListProps) : JSX.Element => {
   const { bookList }=props;
 
   /*서재 반응형 로직*/
-  const Tab = useMediaQuery({maxWidth:1216})
-  const isDesktop= useMediaQuery({minWidth:1216, maxWidth:1462});
-  const isDesktop2=useMediaQuery({minWidth: 1462,maxWidth:1708});
-  const isDesktop3=useMediaQuery({minWidth: 1708});
+  const Tab = useMediaQuery({maxWidth:1150})
+  const isDesktop= useMediaQuery({minWidth:1150, maxWidth:1396});
+  const isDesktop2=useMediaQuery({minWidth: 1396,maxWidth:1642});
+  const isDesktop3=useMediaQuery({minWidth: 1642});
   const handleMedia=()=>{
     if(Tab) {
       setLimit(3);
