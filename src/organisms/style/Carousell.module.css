@@ -1,0 +1,53 @@
+.Contain {
+  padding-top: 38px;
+  padding-bottom: 38px;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+.ListTitle {
+  /* 그룹의 제목 */
+  margin-bottom: 14px;
+  width: 95px;
+  height: 24px;
+
+  /* title-sm */
+  font-family: "Noto Sans CJK KR";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+
+  /* black/80 */
+  color: rgba(0, 0, 0, 0.8);
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+.Button {
+  /* Auto layout */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  margin-right: 16px;
+  gap: 10px;
+  width: 36px;
+  height: 36px;
+
+  /* white */
+  background: #ffffff;
+  /*border*/
+  border-radius: 18px;
+  border: none;
+  border-width: 0;
+}
+.ListArrow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

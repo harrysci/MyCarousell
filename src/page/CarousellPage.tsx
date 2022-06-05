@@ -1,15 +1,16 @@
 import React from 'react';
 import { Title } from '../organisms/Title';
 import { SearchBar } from '../organisms/SearchBar';
-import { BookList } from '../organisms/BookList';
+import { Carousell } from '../organisms/Carousell';
 
 export const CarousellPage=()=>{
   return (
-    <div style={{flexDirection:'row', backgroundColor:'green', display:'flex'}}>
+    <div style={{flexDirection:'row', display:'flex'}}>
       <SearchBar/>
       <div>
         <Title/>
-        <BookList/>
+        <Carousell/>
+        
       </div>
     </div>    
       
